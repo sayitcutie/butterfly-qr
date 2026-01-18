@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>A Small Moment</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: #FFF6F8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Inter', sans-serif;
+      color: #2B2B2B;
+    }
+
+    .container {
+      max-width: 600px;
+      padding: 32px;
+      text-align: center;
+      animation: fadeIn 1.2s ease forwards;
+    }
+
+    .line {
+      opacity: 0;
+      animation: fadeUp 1.2s ease forwards;
+    }
+
+    .opening {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      margin-bottom: 18px;
+      animation-delay: 0.2s;
+    }
+
+    .middle {
+      font-size: 1rem;
+      margin-bottom: 28px;
+      animation-delay: 0.8s;
+      color: #444;
+    }
+
+    .heart {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      margin-bottom: 28px;
+      animation-delay: 1.4s;
+    }
+
+    .ending {
+      font-size: 0.95rem;
+      color: #555;
+      animation-delay: 2.0s;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div id="opening" class="line opening"></div>
+    <div id="middle" class="line middle"></div>
+    <div id="heart" class="line heart"></div>
+    <div id="ending" class="line ending"></div>
+  </div>
+
+  <script>
+    const openings = [
+      "Hey… you weren’t supposed to find this.",
+      "This is a small pause meant just for you.",
+      "Strange how the right things find us.",
+      "You could’ve scanned anything… but you scanned this.",
+      "This isn’t an accident. It’s a moment."
+    ];
+
+    const middles = [
+      "Take a breath. You’re doing okay.",
+      "Sometimes it’s nice to be noticed quietly.",
+      "Not everything needs to make sense to feel right.",
+      "This is just a reminder, nothing more.",
+      "You didn’t need this… but maybe it found you anyway."
+    ];
+
+    const hearts = [
+      "Someone thought you looked beautiful today.",
+      "Someone saw you today and smiled.",
+      "Someone quietly admired you today.",
+      "Someone felt something when they saw you today.",
+      "You were someone’s favorite moment today.",
+      "Someone noticed you, and didn’t look away.",
+      "You crossed someone’s thoughts today."
+    ];
+
+    const endings = [
+      "Some things don’t need an explanation.",
+      "If you found this today, maybe it was meant for today.",
+      "Someone wanted you to feel this… and stay unknown.",
+      "This was the only safe way to say it.",
+      "Not everything random is meaningless."
+    ];
+
+    function pickRandom(arr) {
+      return arr[Math.floor(Math.random() * arr.length)];
+    }
+
+    document.getElementById("opening").textContent = pickRandom(openings);
+    document.getElementById("middle").textContent = pickRandom(middles);
+    document.getElementById("heart").textContent = pickRandom(hearts);
+    document.getElementById("ending").textContent = pickRandom(endings);
+  </script>
+
+</body>
+</html>

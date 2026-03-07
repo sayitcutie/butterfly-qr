@@ -110,6 +110,11 @@ window.location.href="chat.html"
 document.getElementById("signup").onclick=signup
 document.getElementById("login").onclick=login
 
+supabase.auth.getSession().then(({data})=>{
+if(data.session){
+window.location.href="chat.html"
+}
+})
 </script>
 
 </body>

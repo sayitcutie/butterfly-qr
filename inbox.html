@@ -10,9 +10,16 @@ body{
 background:#0f0f0f;
 color:white;
 font-family:Arial;
+margin:0;
 }
 
-.chat-item{
+.header{
+padding:15px;
+border-bottom:1px solid #222;
+font-size:20px;
+}
+
+.chat{
 display:flex;
 justify-content:space-between;
 padding:15px;
@@ -20,7 +27,7 @@ border-bottom:1px solid #222;
 cursor:pointer;
 }
 
-.chat-item:hover{
+.chat:hover{
 background:#1a1a1a;
 }
 
@@ -38,7 +45,7 @@ font-size:14px;
 
 <body>
 
-<h2>Chats</h2>
+<div class="header">Chats</div>
 
 <div id="chatList"></div>
 
@@ -49,22 +56,34 @@ import { createClient } from
 
 const supabase = createClient(
 "https://vlhdzukibuscqoofjlpc.supabase.co",
-"sb_publishable_pXaa1Z0i1C2pcfkgOGUZGA_P4tw758p"
+"YOUR_PUBLISHABLE_KEY"
 )
 
 async function loadChats(){
 
-const {data} = await supabase
+const {data:session}=await supabase.auth.getUser()
+
+const userId=session.user.id
+
+const {data:rooms}=await supabase
+.from("participants")
+.select("room_id")
+.eq("user_id",userId)
+
+const roomIds=rooms.map(r=>r.room_id)
+
+const {data:messages}=await supabase
 .from("messages")
 .select("*")
+.in("room_id",roomIds)
 .order("created_at",{ascending:false})
 
 const chatList=document.getElementById("chatList")
 
-data.forEach(msg=>{
+messages.forEach(msg=>{
 
 let div=document.createElement("div")
-div.className="chat-item"
+div.className="chat"
 
 div.innerHTML=`
 <div>

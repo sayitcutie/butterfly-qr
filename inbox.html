@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="UTF-8">
+<title>Inbox</title>
+
+<style>
+body{
+background:#0f0f0f;
+color:white;
+font-family:Arial;
+}
+
+.chat-item{
+display:flex;
+justify-content:space-between;
+padding:15px;
+border-bottom:1px solid #222;
+cursor:pointer;
+}
+
+.chat-item:hover{
+background:#1a1a1a;
+}
+
+.name{
+font-weight:bold;
+}
+
+.last{
+color:#aaa;
+font-size:14px;
+}
+</style>
+
+</head>
+
+<body>
+
+<h2>Chats</h2>
+
+<div id="chatList"></div>
+
+<script type="module">
+
+import { createClient } from
+'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
+
+const supabase = createClient(
+"https://vlhdzukibuscqoofjlpc.supabase.co",
+"YOUR_PUBLISHABLE_KEY"
+)
+
+async function loadChats(){
+
+const {data} = await supabase
+.from("messages")
+.select("*")
+.order("created_at",{ascending:false})
+
+const chatList=document.getElementById("chatList")
+
+data.forEach(msg=>{
+
+let div=document.createElement("div")
+div.className="chat-item"
+
+div.innerHTML=`
+<div>
+<div class="name">${msg.sender_id}</div>
+<div class="last">${msg.message}</div>
+</div>
+<div>${new Date(msg.created_at).toLocaleTimeString()}</div>
+`
+
+div.onclick=()=>{
+window.location.href="chat.html?room="+msg.room_id
+}
+
+chatList.appendChild(div)
+
+})
+
+}
+
+loadChats()
+
+</script>
+
+</body>
+</html>
